@@ -14,7 +14,7 @@ More to come soon!
 
 These notebooks make changes to agent and scenario branches in your account. Ensure any changes to the target branches are saved prior to running any code. Sedaro recommends committing current work and creating new branches in the target repositories to avoid loss of work.
 
-These notebook also requires that you have previously generated an API key in the web UI. That key should be stored in a file called `secrets.json` in the same directory as these notebooks with the following format:
+These notebook also require that you have previously generated an API key in the web UI. That key should be stored in a file called `secrets.json` in the same directory as these notebooks with the following format:
 
 ```json
 {
