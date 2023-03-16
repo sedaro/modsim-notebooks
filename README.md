@@ -7,6 +7,7 @@ For help installing the `sedaro` python client, see [here](https://github.com/se
 ## Table of Contents
 
 1. [Propulsion](./propulsion.ipynb)
+1. [Results API Demo](./results_api_demo.ipynb)
 
 More to come soon!
 
