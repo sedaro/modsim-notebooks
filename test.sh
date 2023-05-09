@@ -1,5 +1,5 @@
-# source .venv/bin/activate
-# pip install --upgrade --force-reinstall sedaro matplotlib
+source .venv/bin/activate
+pip install --upgrade --force-reinstall sedaro matplotlib
 for i in *.ipynb; do
     jupyter nbconvert --to python $i
     p="${i/.ipynb/.py}"
@@ -7,4 +7,4 @@ for i in *.ipynb; do
     python "$p"
     echo "Done"
 done
-# deactivate
+deactivate
