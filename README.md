@@ -8,6 +8,7 @@ For help installing the `sedaro` python client, see [here](https://github.com/se
 
 1. [Hello, World!](./hello_world.ipynb)
 1. [Results API Demo](./results_api_demo.ipynb)
+1. [Rolling Simulations](./rolling_sims.ipynb)
 
 More to come soon!
 
