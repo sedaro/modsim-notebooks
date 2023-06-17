@@ -8,6 +8,7 @@ For help installing the `sedaro` python client, see [here](https://github.com/se
 
 1. [Hello, World!](./hello_world.ipynb)
 1. [Results API Demo](./results_api_demo.ipynb)
+1. [Flower Constellations](./flower_constellation.ipynb)
 1. [Build SuperDove Constellation](./build_superdove_constellation.ipynb)
 
 More to come soon!
