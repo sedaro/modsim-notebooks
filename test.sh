@@ -5,6 +5,10 @@ for i in *.ipynb; do
     p="${i/.ipynb/.py}"
     echo "Running $p"
     python "$p"
+    if [ $? -ne 0 ]; then
+        echo "Failed"
+        break
+    fi
     echo "Done"
 done
 deactivate
