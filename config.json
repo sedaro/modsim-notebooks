@@ -1,5 +1,11 @@
 {
   "HOST": "https://api.sedaro.com",
-  "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
-  "SCENARIO_BRANCH_ID": "<your branch id here>"
+  "WILDFIRE": {
+    "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
+    "SCENARIO_BRANCH_ID": "<your branch id here>"
+  },
+  "SUPERDOVE": {
+    "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
+    "SCENARIO_BRANCH_ID": "<your branch id here>"
+  }
 }
