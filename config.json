@@ -7,5 +7,9 @@
   "SUPERDOVE": {
     "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
     "SCENARIO_BRANCH_ID": "<your branch id here>"
+  },
+  "FLOWERS": {
+    "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
+    "SCENARIO_BRANCH_ID": "<your branch id here>"
   }
 }
