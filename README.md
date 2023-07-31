@@ -10,6 +10,7 @@ For help installing the `sedaro` python client, see [here](https://github.com/se
 2. [Results API Demo](./results_api_demo.ipynb)
 3. [Flower Constellations](./flower_constellation.ipynb)
 4. [Build SuperDove Constellation](./build_superdove_constellation.ipynb)
+5. [Wildfire Cosimulation Game](./wildfire_cosimulation_game.ipynb)
 
 More to come soon!
 
