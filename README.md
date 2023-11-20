@@ -23,7 +23,8 @@ These notebooks demonstrate the accuracy of Sedaro models through interaction wi
 
 As our model selection expands, we will continue to add new validation notebooks here.
 
-1. [Gravity Model](model_validation/gravity/gravity.ipynb)
+1. [Attitude Dynamics](model_validation/attitude_dynamics.ipynb)
+2. [Gravity Model](model_validation/gravity/gravity.ipynb)
 
 
 ### Important: Read Before Running
