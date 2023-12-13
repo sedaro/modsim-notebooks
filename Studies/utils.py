@@ -60,8 +60,28 @@ def angleBetweenQuaternion(q1: np.ndarray, q2: np.ndarray) -> np.ndarray:
 def createSimIdToListParameterDataframe(list_data, columnNames, start_index=1):
     return { sim_id: pd.DataFrame(series.values[start_index:], columns=columnNames) for (sim_id, series) in list_data.items()  } 
 
+def plotStudySeries(job_id_to_dataframe):
+    for sim_id, dataframe in job_id_to_dataframe.items():
+        plt.plot( dataframe[sim_id].values, label=sim_id,linestyle='', marker='D', markersize=2 )
+    plt.legend(bbox_to_anchor=(1, 1))
+    plt.show()
+
+
 def plotStudySubSeries(job_id_to_dataframe, subseries):
     for sim_id, dataframe in job_id_to_dataframe.items():
         plt.plot( dataframe[subseries].values, label=sim_id,linestyle='', marker='D', markersize=2 )
     plt.legend(bbox_to_anchor=(1, 1))
     plt.show()
+
+def plotStudySeriesSubPlots(job_id_to_dataframe, series):
+    fig, axs = plt.subplots(len(job_id_to_dataframe), sharex=True, sharey=True)
+    for i, (sim_id, dataframe) in enumerate(job_id_to_dataframe.items()):
+        axs[i].plot( dataframe[series].values, label=sim_id,linestyle='', marker='D', markersize=2 )
+        axs[i].legend(bbox_to_anchor=(1, 1))
+    plt.show()
+
+def studyStats(job_id_to_dataframe, series):
+    data = { sim_id: dataframe[series].values for sim_id, dataframe in job_id_to_dataframe.items()}
+    study_roll_df = pd.DataFrame(data)
+    return study_roll_df.describe()
+        
