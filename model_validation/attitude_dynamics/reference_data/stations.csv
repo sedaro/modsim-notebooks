@@ -1,0 +1,79 @@
+Train Station,City,Country,Latitude,Longitude
+Chhatrapati Shivaji Terminus,Mumbai,India,18.9400° N,72.8356° E
+Kanazawa Station,Kanazawa,Japan,36.5781° N,136.6483° E
+Grand Central Terminal,New York,USA,40.7527° N,73.9772° W
+Lime Street Station,Liverpool,UK,53.4072° N,2.9778° W
+Manchester United Football Ground Station,Manchester,UK,53.4625° N,2.2914° W
+King’s Cross Station,London,UK,51.5308° N,0.1231° W
+Union Station,Kansas City,USA,39.0853° N,94.5858° W
+Union Station,Washington D.C.,USA,38.8970° N,77.0064° W
+30th Street Station,Philadelphia,USA,39.9556° N,75.1820° W
+Union Terminal,Cincinnati,USA,39.1097° N,84.5370° W
+Antwerp Central Station,Antwerp,Belgium,51.2172° N,4.4211° E
+Atocha Station,Madrid,Spain,40.4069° N,3.6899° W
+Gare du Nord,Paris,France,48.8809° N,2.3553° E
+St. Pancras International,London,UK,51.5314° N,0.1260° W
+São Bento Station,Porto,Portugal,41.1456° N,8.6103° W
+Amsterdam Centraal,Amsterdam,Netherlands,52.3789° N,4.9003° E
+Milano Centrale,Milan,Italy,45.4857° N,9.2033° E
+Haydarpasa Station,Istanbul,Turkey,41.0186° N,29.0172° E
+Sirkeci Station,Istanbul,Turkey,41.0176° N,28.9778° E
+Helsinki Central Station,Helsinki,Finland,60.1719° N,24.9414° E
+Oslo Central Station,Oslo,Norway,59.9111° N,10.7528° E
+Stockholm Central Station,Stockholm,Sweden,59.3300° N,18.0583° E
+Copenhagen Central Station,Copenhagen,Denmark,55.6728° N,12.5644° E
+Berlin Hauptbahnhof,Berlin,Germany,52.5256° N,13.3694° E
+Zurich Hauptbahnhof,Zurich,Switzerland,47.3783° N,8.5400° E
+Moscow Kazansky Station,Moscow,Russia,55.7767° N,37.6556° E
+Beijing Railway Station,Beijing,China,39.9047° N,116.4272° E
+Shanghai Railway Station,Shanghai,China,31.2494° N,121.4558° E
+Tokyo Station,Tokyo,Japan,35.6814° N,139.7671° E
+Kyoto Station,Kyoto,Japan,34.9858° N,135.7589° E
+Howrah Station,Kolkata,India,22.5839° N,88.3417° E
+Chennai Central Station,Chennai,India,13.0822° N,80.2750° E
+Flinders Street Station,Melbourne,Australia,37.8178° S,144.9671° E
+Sydney Central Station,Sydney,Australia,33.8831° S,151.2061° E
+Perth Station,Perth,Australia,31.9522° S,115.8589° E
+Dunedin Railway Station,Dunedin,New Zealand,45.8744° S,170.5031° E
+Wellington Railway Station,Wellington,New Zealand,41.2794° S,174.7806° E
+Auckland Railway Station,Auckland,New Zealand,36.8483° S,174.7628° E
+Cape Town Station,Cape Town,South Africa,33.9244° S,18.4250° E
+Johannesburg Park Station,Johannesburg,South Africa,26.1897° S,28.0422° E
+Pretoria Station,Pretoria,South Africa,25.7478° S,28.1894° E
+Tangier Ville Station,Tangier,Morocco,35.7833° N,5.8069° W
+Marrakesh Station,Marrakesh,Morocco,31.6333° N,8.0167° W
+Rabat Ville Station,Rabat,Morocco,34.0228° N,6.8342° W
+Cairo Ramses Station,Cairo,Egypt,30.0647° N,31.2494° E
+Alexandria Station,Alexandria,Egypt,31.2000° N,29.9167° E
+Luxor Station,Luxor,Egypt,25.7000° N,32.6500° E
+Nairobi Railway Station,Nairobi,Kenya,1.2833° S,36.8167° E
+Mombasa Railway Station,Mombasa,Kenya,4.0500° S,39.6667° E
+Dar es Salaam Railway Station,Dar es Salaam,Tanzania,6.8167° S,39.2833° E
+Addis Ababa La Gare Station,Addis Ababa,Ethiopia,9.0333° N,38.7500° E
+Djibouti-Ethiopia Railway Station,Djibouti,Djibouti,11.6000° N,43.1500° E
+Harare Railway Station,Harare,Zimbabwe,17.8333° S,31.0500° E
+Bulawayo Railway Station,Bulawayo,Zimbabwe,20.1500° S,28.5833° E
+Victoria Falls Station,Victoria Falls,Zimbabwe,17.9333° S,25.8333° E
+Maputo Railway Station,Maputo,Mozambique,25.9667° S,32.5833° E
+Beira Railway Station,Beira,Mozambique,19.8333° S,34.8500° E
+Nampula Railway Station,Nampula,Mozambique,15.1167° S,39.2667° E
+Lagos Railway Station,Lagos,Nigeria,6.4500° N,3.4000° E
+Kano Railway Station,Kano,Nigeria,12.0000° N,8.5167° E
+Abuja Railway Station,Abuja,Nigeria,9.0667° N,7.4833° E
+Dakar Railway Station,Dakar,Senegal,14.6667° N,17.4333° W
+Bamako Railway Station,Bamako,Mali,12.6500° N,8.0000° W
+Abidjan Railway Station,Abidjan,Ivory Coast,5.3167° N,4.0333° W
+Accra Railway Station,Accra,Ghana,5.5500° N,0.2000° W
+Kumasi Railway Station,Kumasi,Ghana,6.6833° N,1.6167° W
+Lomé Railway Station,Lomé,Togo,6.1333° N,1.2167° E
+Cotonou Railway Station,Cotonou,Benin,6.3667° N,2.4333° E
+Ouagadougou Railway Station,Ouagadougou,Burkina Faso,12.3667° N,1.5167° W
+Niamey Railway Station,Niamey,Niger,13.5167° N,2.1167° E
+Khartoum Railway Station,Khartoum,Sudan,15.6000° N,32.5333° E
+Asmara Railway Station,Asmara,Eritrea,15.3333° N,38.9333° E
+Algiers Agha Station,Algiers,Algeria,36.7667° N,3.0500° E
+Estación Central,Chile,Chile,33.4592° S,70.6799° W
+Estación Retiro,Argentina,Argentina,34.5895° S,58.3742° W
+Estação da Luz,Brazil,Brazil,23.5361° S,46.6333° W
+Estación San Borja,Peru,Peru,12.0747° S,77.0128° W
+Estación Central,Colombia,Colombia,4.5981° N,74.0758° W
