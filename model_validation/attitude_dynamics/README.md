@@ -1,4 +1,4 @@
-## Sedaro Validaton Notebook: _Attitude Dynamics_
+## Sedaro Validation Notebook: _Attitude Dynamics_
 
 This directory provides the tools necessary to compare the attitude propagation in Sedaro to that in Basilisk. Basilisk is a software framework for 
 astrodynamics simulations developed by the Autonomous Vehicle Systems Lab and Laboratory for Atmospheric and Space
@@ -12,7 +12,7 @@ Since the control in Basilisk is open-loop (that is to say, the wheel torques ar
 This analogous to commanding the physical twin of the Sedaro model without feedback. How long can we count on Sedaro to reproduce the "true" behavior, and how precisely? 
 To find out, we use the Sedaro results API to get the time series of attitude of each agent and compare the results to the Basilisk simulations (`attitude_dynamics.ipynb`).
 
-We've already run two official scenarios as a validation exercise, the results of which are included in the `plots` directory. If you would like to conduct your own validation, there are instructions to do so in the follw
+We've already run two official scenarios as a validation exercise, the results of which are included in the `plots` directory. If you would like to conduct your own validation, there are instructions to do so under "Custom Validation".
 
 ### Official Scenario and Included Plots
 Each of our official validation scenarios contains 10 Agents which orbit Earth at varying inclinations in LEO. The first scenario (FIXME: sharable link) uses an attitude control algorithm to point the satellite's +Z axis towards the train station which it is the most directly overhead, maximally aligning the +X axis to nadir. The Sedaro simulation results for this scenario can be found at `simulation_data/sedaro_data_active.json`, the Basilisk results are found at `reference_data/basilisk_results_active.json`, and the validation plots at `plots/active_control`.
