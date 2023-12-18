@@ -36,7 +36,8 @@ results = {}
 simulation_results = sedaro.scenario(scenario_branch).simulation.results()
 for i, agent_id in enumerate(simulation_results.templated_agents):
     agent_results = simulation_results.agent(agent_id)
-    elapsed_times = agent_results.block(x_wheel_id).commandedTorqueMagnitude.elapsed_time
+    elapsed_times = agent_results.block(
+        x_wheel_id).commandedTorqueMagnitude.elapsed_time
     x_torque = agent_results.block(x_wheel_id).commandedTorqueMagnitude.values
     y_torque = agent_results.block(y_wheel_id).commandedTorqueMagnitude.values
     z_torque = agent_results.block(z_wheel_id).commandedTorqueMagnitude.values

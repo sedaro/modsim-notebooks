@@ -1,8 +1,8 @@
 '''
-This simulation script uses the Sedaro data to run an open-loop simulation in Basilisk, software framework for 
+This simulation script uses the Sedaro data to run an open-loop simulation in Basilisk, software framework for
 astrodynamics simulations developed by the Autonomous Vehicle Systems Lab and Laboratory for Atmospheric and Space
 Physics at CU Boulder. More information about Basilisk can be found here: https://hanspeterschaub.info/basilisk/
-It is not necessary to run this script unless you want to validate your own scenario against Basilisk, as the results 
+It is not necessary to run this script unless you want to validate your own scenario against Basilisk, as the results
 for our validation are included at reference_data/basilisk_results.json
 
 The setup for the reaction wheel simulation is modified from Basilisk's example simulation scenarioAttitudeFeedbackRW.py
@@ -39,22 +39,28 @@ from utils import progress_bar
 bskPath = __path__[0]
 fileName = os.path.basename(os.path.splitext(__file__)[0])
 
-def load_sedaro_data(data_file_in:str) -> dict:
+
+def load_sedaro_data(data_file_in: str) -> dict:
     with open(data_file_in, 'rb') as f:
         sedaro_data = json.load(f)
     return sedaro_data
 
-def format_basilisk_results(cumulative_results, id_, times, attitude, omegas, motor_torques, gg_torque):
+
+def format_basilisk_results(cumulative_results, id_,
+                            times, attitude, omegas, motor_torques, gg_torque):
     cumulative_results[id_] = {
         'time': times.tolist(),
         'attitude_mrp': attitude.tolist(),
         'gg_torque': gg_torque.tolist(),
     }
     omegas = np.array(omegas)
-    cumulative_results[id_] |= {f'rw_{d}_omega': omegas[i, :].tolist() for i, d in enumerate('xyz')}
+    cumulative_results[id_] |= {
+        f'rw_{d}_omega': omegas[i, :].tolist() for i, d in enumerate('xyz')}
     motor_torques = np.array(motor_torques)
-    cumulative_results[id_] |= {f'motor_{d}': motor_torques[i, :].tolist() for i, d in enumerate('xyz')}
-    
+    cumulative_results[id_] |= {
+        f'motor_{d}': motor_torques[i, :].tolist() for i, d in enumerate('xyz')}
+
+
 def build_basilisk_sim(sedaro_data, agent_id):
     # Create simulation variable names
     simTaskName = "simTask"
@@ -73,12 +79,13 @@ def build_basilisk_sim(sedaro_data, agent_id):
     # define the simulation inertia
     I = np.array(sedaro_data['inertia']).flatten()
     scObject.hub.mHub = sedaro_data['mass']  # kg - spacecraft mass
-    scObject.hub.r_BcB_B = [[0.0], [0.0], [0.0]]  # m - position vector of body-fixed point B relative to CM
+    # m - position vector of body-fixed point B relative to CM
+    scObject.hub.r_BcB_B = [[0.0], [0.0], [0.0]]
     scObject.hub.IHubPntBc_B = unitTestSupport.np2EigenMatrix3d(I)
     # add spacecraft object to the simulation process
     scSim.AddModelToTask(simTaskName, scObject, 1)
-    
-    ## Set up gravitation
+
+    # Set up gravitation
     # clear prior gravitational body and SPICE setup definitions
     gravFactory = simIncludeGravBody.gravBodyFactory()
     # setup Earth Gravity Body
@@ -86,7 +93,8 @@ def build_basilisk_sim(sedaro_data, agent_id):
     earth.isCentralBody = True  # ensure this is the central gravitational body
     mu = earth.mu
     # attach gravity model to spacecraft
-    scObject.gravField.gravBodies = spacecraft.GravBodyVector(list(gravFactory.gravBodies.values()))
+    scObject.gravField.gravBodies = spacecraft.GravBodyVector(
+        list(gravFactory.gravBodies.values()))
     # Same for gravity gradient
     ggEff = GravityGradientEffector.GravityGradientEffector()
     ggEff.modelTag = scObject.ModelTag
@@ -95,11 +103,13 @@ def build_basilisk_sim(sedaro_data, agent_id):
     scSim.AddModelToTask(simTaskName, ggEff)
     # create message to specify translational motion
     rv_messageData = messaging.TransRefMsgPayload()
-    rv_messageData.r_RN_N = np.array(sedaro_data['results'][agent_id]['position'][0])*1000
-    rv_messageData.v_RN_N = np.array(sedaro_data['results'][agent_id]['velocity'][0])*1000
+    rv_messageData.r_RN_N = np.array(
+        sedaro_data['results'][agent_id]['position'][0]) * 1000
+    rv_messageData.v_RN_N = np.array(
+        sedaro_data['results'][agent_id]['velocity'][0]) * 1000
     rv_message = messaging.TransRefMsg().write(rv_messageData)
 
-    ## Reaction wheels
+    # Reaction wheels
     # Add reaction wheels
     rwFactory = simIncludeRW.rwFactory()
     varRWModel = messaging.BalancedWheels
@@ -123,10 +133,10 @@ def build_basilisk_sim(sedaro_data, agent_id):
     scSim.AddModelToTask(simTaskName, rwStateEffector, 2)
     # create message to command reaction wheel torque
     rwCommand_messageData = messaging.ArrayMotorTorqueMsgPayload()
-    rwCommand_messageData.motorTorque = [0.0]*numRW
+    rwCommand_messageData.motorTorque = [0.0] * numRW
     rwCommand_message = messaging.ArrayMotorTorqueMsg().write(rwCommand_messageData)
 
-    ## Add navigation
+    # Add navigation
     sNavObject = simpleNav.SimpleNav()
     sNavObject.ModelTag = "SimpleNavigation"
     scSim.AddModelToTask(simTaskName, sNavObject)
@@ -137,10 +147,9 @@ def build_basilisk_sim(sedaro_data, agent_id):
     # Set initial attitude. MRP is the first 3 quaternion elements/ (1+q4)
     inertial3DObj.sigma_R0N = np.array(
         sedaro_data['results'][agent_id]['attitude'][0][:3]
-        ) / (1 + sedaro_data['results'][agent_id]['attitude'][0][3])
+    ) / (1 + sedaro_data['results'][agent_id]['attitude'][0][3])
 
-
-    ## Add message logging
+    # Add message logging
     samplingTime = macros.sec2nano(1.)
     snAttLog = sNavObject.attOutMsg.recorder(samplingTime)
     ggLog = ggEff.gravityGradientOutMsg.recorder(samplingTime)
@@ -151,19 +160,24 @@ def build_basilisk_sim(sedaro_data, agent_id):
         rwLogs.append(rwStateEffector.rwOutMsgs[item].recorder(samplingTime))
         scSim.AddModelToTask(simTaskName, rwLogs[item])
 
-    ## Link messages
+    # Link messages
     sNavObject.scStateInMsg.subscribeTo(scObject.scStateOutMsg)
     scObject.transRefInMsg.subscribeTo(rv_message)
     rwStateEffector.rwMotorCmdInMsg.subscribeTo(rwCommand_message)
 
     scSim.InitializeSimulation()
 
-    ## Run a sim for each Sedaro timestep
-    for i in range(nsteps := len(sedaro_data['results'][agent_id]['elapsed_times'])-1):
-        # Sedaro propagates to the next timestep using the current torques, etc.
-        scSim.ConfigureStopTime(macros.sec2nano(sedaro_data['results'][agent_id]['elapsed_times'][i+1]))
-        rv_messageData.r_RN_N = np.array(sedaro_data['results'][agent_id]['position'][i])*1000
-        rv_messageData.v_RN_N = np.array(sedaro_data['results'][agent_id]['velocity'][i])*1000
+    # Run a sim for each Sedaro timestep
+    for i in range(nsteps := len(
+            sedaro_data['results'][agent_id]['elapsed_times']) - 1):
+        # Sedaro propagates to the next timestep using the current torques,
+        # etc.
+        scSim.ConfigureStopTime(macros.sec2nano(
+            sedaro_data['results'][agent_id]['elapsed_times'][i + 1]))
+        rv_messageData.r_RN_N = np.array(
+            sedaro_data['results'][agent_id]['position'][i]) * 1000
+        rv_messageData.v_RN_N = np.array(
+            sedaro_data['results'][agent_id]['velocity'][i]) * 1000
         rv_message.write(rv_messageData)
         rwCommand_messageData.motorTorque = [
             sedaro_data['results'][agent_id]['x_torque'][i],
@@ -172,7 +186,7 @@ def build_basilisk_sim(sedaro_data, agent_id):
         ]
         rwCommand_message.write(rwCommand_messageData)
         scSim.ExecuteSimulation()
-        progress_bar((i+1)/nsteps)
+        progress_bar((i + 1) / nsteps)
     # Return after progress bar completes
     print()
 
@@ -181,8 +195,9 @@ def build_basilisk_sim(sedaro_data, agent_id):
     omegas = [w.Omega for w in rwLogs]
     motor_torques = [w.u_current for w in rwLogs]
     gg_torque = ggLog.gravityGradientTorque_B
-    
+
     return times, attitude, omegas, motor_torques, gg_torque
+
 
 def main():
     # Load Sedaro data
@@ -204,6 +219,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-    
