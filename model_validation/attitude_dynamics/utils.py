@@ -1,3 +1,4 @@
+import json
 from typing import Tuple
 
 import numpy as np
@@ -86,3 +87,14 @@ def angleBetweenClosestQuaternions(q_1: np.ndarray, t_1: float,
     '''
     # Calculate the angle between the two closest quaternions
     return angleBetweenQuaternion(q_1, qs_2[findClosestIndex(t_1, ts_2)])
+
+def sedaroLogin():
+    from sedaro import SedaroApiClient
+
+    #FIXME
+    with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
+        API_KEY = json.load(file)['fleetwood']
+    # return SedaroApiClient(API_KEY, host='http://localhost')
+    return SedaroApiClient(API_KEY, host='http://api.astage.sedaro.com')  
+    # with open('../../secrets.json', 'r') as file: FIXME
+    #     API_KEY = json.load(file)['API_KEY_LOCAL']

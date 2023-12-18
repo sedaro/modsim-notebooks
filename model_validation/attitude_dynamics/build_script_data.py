@@ -7,25 +7,18 @@ However, you can run a validation against your own model by editing the values
 of scenario_branch and template_branch below.
 '''
 import json
-import pprint
 
 import numpy as np
-from sedaro import SedaroApiClient
+from utils import sedaroLogin
 
-# import pickle
+# Script settings
 
-
-scenario_branch = 'PKnnzr5ZZDs2mKTfqXnpqs'
-template_branch = 'PKgktBPKwNRrQh2KtsTjtc'
+scenario_branch = ''
+template_branch = ''
 outfile = 'simulation_data/sedaro_data.json'
 
 # Initialize the Sedaro API client
-with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
-    API_KEY = json.load(file)['garfunkel']
-# with open('../../secrets.json', 'r') as file: FIXME
-#     API_KEY = json.load(file)['API_KEY_LOCAL']
-
-sedaro = SedaroApiClient(API_KEY, host='http://localhost') #FIXME
+sedaro = sedaroLogin()
 
 # Get the ids of the reaction wheels
 vehicle = sedaro.agent_template(template_branch)
@@ -42,7 +35,7 @@ wheel_inertia = vehicle.block(x_wheel_id).inertia
 results = {}
 simulation_results = sedaro.scenario(scenario_branch).simulation.results()
 for i, agent_id in enumerate(simulation_results.templated_agents):
-    agent_results = simulation_results.agent(simulation_results.templated_agents[0])
+    agent_results = simulation_results.agent(agent_id)
     elapsed_times = agent_results.block(x_wheel_id).commandedTorqueMagnitude.elapsed_time
     x_torque = agent_results.block(x_wheel_id).commandedTorqueMagnitude.values
     y_torque = agent_results.block(y_wheel_id).commandedTorqueMagnitude.values

@@ -32,12 +32,8 @@ import numpy as np
 from Basilisk import __path__
 from Basilisk.architecture import messaging
 from Basilisk.fswAlgorithms import inertial3D
-from Basilisk.simulation import (GravityGradientEffector,
-                                 reactionWheelStateEffector, simpleNav,
-                                 spacecraft)
-from Basilisk.utilities import (SimulationBaseClass, macros,
-                                simIncludeGravBody, simIncludeRW,
-                                unitTestSupport)
+from Basilisk.simulation import GravityGradientEffector, reactionWheelStateEffector, simpleNav, spacecraft
+from Basilisk.utilities import SimulationBaseClass, macros, simIncludeGravBody, simIncludeRW, unitTestSupport
 from utils import progress_bar
 
 bskPath = __path__[0]
@@ -75,7 +71,7 @@ def build_basilisk_sim(sedaro_data, agent_id):
     scObject = spacecraft.Spacecraft()
     scObject.ModelTag = "sedaro-Sat"
     # define the simulation inertia
-    I = np.array(sedaro_data['inertia'] - sedaro_data['wheel_inertia']*np.eye(3)).flatten()
+    I = np.array(sedaro_data['inertia']).flatten()
     scObject.hub.mHub = sedaro_data['mass']  # kg - spacecraft mass
     scObject.hub.r_BcB_B = [[0.0], [0.0], [0.0]]  # m - position vector of body-fixed point B relative to CM
     scObject.hub.IHubPntBc_B = unitTestSupport.np2EigenMatrix3d(I)
