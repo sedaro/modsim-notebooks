@@ -9,7 +9,7 @@ We then use the Sedaro results API to get the time series of commanded reaction 
 have the same design specifications as in Sedaro. We will use the commanded torques from Sedaro to command the satellite in Basilisk - an effective open loop system. (`sedaro_RWs_basilisk.py`)
 
 Since the control in Basilisk is open-loop (that is to say, the wheel torques are not dependent on the attitude but are pre-programmed), we expect the attitude to diverge from Sedaro eventually. 
-This analogous to commanding the physical twin of the Sedaro model without feedback. How long can we count on Sedaro to reproduce the "true" behavior, and how precisely? 
+This method is analogous to commanding the physical twin of the Sedaro model without feedback. How long can we count on Sedaro to reproduce the "true" behavior, and how precisely? 
 To find out, we use the Sedaro results API to get the time series of attitude of each agent and compare the results to the Basilisk simulations (`attitude_dynamics.ipynb`).
 
 We've already run two official scenarios as a validation exercise, the results of which are included in the `plots` directory. If you would like to conduct your own validation, there are instructions to do so under "Custom Validation".
