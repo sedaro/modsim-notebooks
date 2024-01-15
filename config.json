@@ -1,5 +1,6 @@
 {
   "HOST": "https://api.sedaro.com",
+  "WEB_HOST": "https://satellite.sedaro.com",
   "WILDFIRE": {
     "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
     "SCENARIO_BRANCH_ID": "<your branch id here>"
