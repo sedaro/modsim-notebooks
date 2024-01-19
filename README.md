@@ -10,11 +10,11 @@ For help installing the `sedaro` python client, see [here](https://github.com/se
 
 These notebooks focus on interactions with the Sedaro API from Python.
 
-1. [Hello, World!](getting_started/hello_world.ipynb)
-2. [Results API Demo](getting_started/results_api_demo.ipynb)
-3. [Flower Constellations](getting_started/flower_constellation.ipynb)
-4. [Build SuperDove Constellation](getting_started/build_superdove_constellation.ipynb)
-5. [Wildfire Cosimulation Game](getting_started/wildfire_cosimulation_game.ipynb)
+1. [Hello, World!](examples/hello_world.ipynb)
+2. [Results API Demo](examples/results_api_demo.ipynb)
+3. [Flower Constellations](examples/flower_constellation.ipynb)
+4. [Build SuperDove Constellation](examples/build_superdove_constellation.ipynb)
+5. [Wildfire Cosimulation Game](examples/wildfire_cosimulation_game.ipynb)
 
 
 ### Model Validation
@@ -23,7 +23,7 @@ These notebooks demonstrate the accuracy of Sedaro models through interaction wi
 
 As our model selection expands, we will continue to add new validation notebooks here.
 
-1. [Gravity Model](model_validation/gravity.ipynb)
+1. [Gravity Model](model_validation/gravity/gravity.ipynb)
 
 
 ### Important: Read Before Running
