@@ -6,3 +6,12 @@ results_api_demo.py
 *.bak
 flower_constellation.py
 build_superdove_constellation.py
+.DS_STORE
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.oem
+*.zip
