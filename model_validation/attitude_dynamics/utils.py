@@ -1,7 +1,10 @@
 import json
+from pathlib import Path
 from typing import Tuple
 
 import numpy as np
+import requests
+from sedaro import SedaroApiClient
 
 
 def progress_bar(progress):
@@ -99,12 +102,14 @@ def angleBetweenClosestQuaternions(q_1: np.ndarray, t_1: float,
 
 
 def sedaroLogin():
-    from sedaro import SedaroApiClient
+    with open('../../secrets.json', 'r') as file:
+        API_KEY = json.load(file)['API_KEY']
+    return SedaroApiClient(API_KEY)
 
-    # FIXME
-    with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
-        API_KEY = json.load(file)['fleetwood']
-    # return SedaroApiClient(API_KEY, host='http://localhost')
-    return SedaroApiClient(API_KEY, host='http://api.astage.sedaro.com')
-    # with open('../../secrets.json', 'r') as file: FIXME
-    #     API_KEY = json.load(file)['API_KEY_LOCAL']
+
+def download_file(url: str, path: str):
+    path_ = Path(path)
+    path_.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "wb") as file:
+        response = requests.get(url)
+        file.write(response.content)

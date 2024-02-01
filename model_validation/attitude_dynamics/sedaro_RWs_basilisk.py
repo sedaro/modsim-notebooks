@@ -201,6 +201,10 @@ def build_basilisk_sim(sedaro_data, agent_id):
 
 def main():
     # Load Sedaro data
+    # If you want run the Basilisk simulation with the results from the official validation scenarios, you can get the
+    # files from these links:
+    # https://sedaro-modsim-artifacts.s3.us-gov-east-1.amazonaws.com/sedaro_data_active.json
+    # https://sedaro-modsim-artifacts.s3.us-gov-east-1.amazonaws.com/sedaro_data_passive.json
     data_file_in = 'simulation_data/sedaro_data.json'
     results_file_out = 'reference_data/basilisk_results.json'
     sedaro_data = load_sedaro_data(data_file_in)

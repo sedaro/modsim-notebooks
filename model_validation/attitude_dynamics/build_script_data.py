@@ -7,6 +7,7 @@ However, you can run a validation against your own model by editing the values
 of scenario_branch and template_branch below.
 '''
 import json
+import os
 
 import numpy as np
 from utils import sedaroLogin
@@ -55,7 +56,9 @@ for i, agent_id in enumerate(simulation_results.templated_agents):
     }
 
 
-# Finally, save the data to a pickle file
+# Finally, save the data to a json file
+if not os.path.exists(outfile):
+    os.makedirs(os.path.dirname(outfile), exist_ok=True)
 with open(outfile, 'w') as file:
     data = json.dump({
         'mass': mass,
