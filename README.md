@@ -16,16 +16,14 @@ These notebooks focus on interactions with the Sedaro API from Python.
 4. [Build SuperDove Constellation](examples/build_superdove_constellation.ipynb)
 5. [Wildfire Cosimulation Game](examples/wildfire_cosimulation_game.ipynb)
 
-
 ### Model Validation
 
 These notebooks demonstrate the accuracy of Sedaro models through interaction with public Sedaro scenarios. Each notebook focuses on a specific subset of our models to prove their accuracy in realistic situations.
 
 As our model selection expands, we will continue to add new validation notebooks here.
 
-1. [Attitude Dynamics](model_validation/attitude_dynamics.ipynb)
+1. [Attitude Dynamics](model_validation/attitude_dynamics/attitude_dynamics.ipynb)
 2. [Gravity Model](model_validation/gravity/gravity.ipynb)
-
 
 ### Important: Read Before Running
 
