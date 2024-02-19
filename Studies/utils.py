@@ -88,28 +88,62 @@ def studyStats(job_id_to_dataframe, series):
     data = { sim_id: dataframe[series].values for sim_id, dataframe in job_id_to_dataframe.items()}
     study_roll_df = pd.DataFrame(data)
     return study_roll_df.describe()
-        
+
+def workspaceStudyJobStatus(sedaroAPI, scenario_branch_id):
+     study_resource_url = f'/simulations/branches/{scenario_branch_id}/control/study/'
+     return [ (study['id'], study['status']) for study in sedaroAPI.request.get(  study_resource_url) ]
+
+def runStudy(sedaroAPI, scenario_branch_id, iterations, overridesID):
+    create_study_resource_url = f'/simulations/branches/{scenario_branch_id}/control/study/'
+    new_studyjob = sedaroAPI.request.post(  create_study_resource_url,
+                                            body={
+                                                "iterations": iterations,
+                                                "override_id": overridesID
+                                                })
+    return new_studyjob
+
+def getStudyStatus(sedaroAPI, scenario_branch_id, study_id):
+     study_control_resource = f'/simulations/branches/{scenario_branch_id}/control/study/{study_id}'
+     study_status = sedaroAPI.request.get(study_control_resource)
+     return study_status
+
+def getStudySimJobsStatus(sedaroAPI, scenario_branch_id, study_id):
+     study_status = getStudyStatus(sedaroAPI, scenario_branch_id, study_id)
+     study_job_ids = study_status['jobs']
+     return [ ( f"SimJob ID: {job['id']}", f"Status: {job['status']}", f"Progress:", job['progress']) 
+        for job_id in study_job_ids 
+        for job in [sedaroAPI.request.get(f'/simulations/branches/{scenario_branch_id}/control/{job_id}')] ]
+
+
+
 class AgentModelParametersOverridePaths():
-    def __init__(self, wildfire_scenario_branch, wildfire_agent_branch, agent_name='Wildfire'):
-        self.wildfire_scenario_branch = wildfire_scenario_branch
-        self.wildfire_agent_branch    = wildfire_agent_branch
+    def __init__(self, scenario_branch, agent_branch, agent_name='Wildfire'):
+        self.scenario_branch = scenario_branch
+        self.agent_branch    = agent_branch
         self.agent_id_name_map, self.agent_name_id_map = self.create_agent_name_id_maps()
         self.path_to_agent_key = self.create_path_to_agent_dict(agent_name)
 
     def create_agent_name_id_maps(self): 
-        self.scenario_flat       = flatten_json.flatten( self.wildfire_scenario_branch.data, '.') 
+        self.scenario_flat       = flatten_json.flatten( self.scenario_branch.data, '.') 
         agent_id_name_map   = { key.split('.')[1]: value for (key,value) in self.scenario_flat.items() if key.endswith('name') } 
         agent_name_id_map   = { value: key.split('.')[1] for (key,value) in self.scenario_flat.items() if key.endswith('name') } 
         return agent_id_name_map, agent_name_id_map
 
+        # create the reverse dict:  path to agent_key
+        path_to_agent_key   = { value: key for (key,value) in agent_key_to_path.items() }
+        return agent_key_to_path,path_to_agent_key 
+
     def create_path_to_agent_dict(self, agent_name='Wildfire'):
-        agent_flat = flatten_json.flatten( self.wildfire_agent_branch.data, '.') 
+        agent_flat = flatten_json.flatten( self.agent_branch.data, '.') 
 
         self.agent_branches_flat = { f"{self.agent_name_id_map[agent_name]}.data.{key}": value for (key,value) in agent_flat.items() }
 
-        agent_block_id_name = { tokens[-2]: value for (key, value) in self.agent_branches_flat.items() if key.endswith('.name') and  'blocks' in key for tokens in [key.split('.')] } 
-        agent_block_id_type = { tokens[-2]: value for (key,value) in self.agent_branches_flat.items() if key.endswith('.type') and 'blocks' in key for tokens in [key.split('.')]}
-
+        agent_block_id_name  = { blockID: block['name'] for (blockID, block) in self.agent_branch['data']['blocks'].items() 
+                                                        if 'name' in block }
+ 
+        agent_block_id_type  = { blockID: block['type'] for (blockID, block) in self.agent_branch['data']['blocks'].items() 
+                                                        if 'type' in block }
+        
         # block parameters
         agent_key_to_path   = { key: f"{ self.agent_id_name_map[ agentId ]}/{ agent_block_id_name[BlockId] if BlockId in agent_block_id_name else agent_block_id_type[BlockId]}/{'/'.join(key.split('.')[4:])}" 
                                     for (key,value) in self.agent_branches_flat.items() if 'blocks' in key
