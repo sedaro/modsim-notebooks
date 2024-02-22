@@ -98,7 +98,7 @@ def runStudy(sedaroAPI, scenario_branch_id, iterations, overridesID):
     new_studyjob = sedaroAPI.request.post(  create_study_resource_url,
                                             body={
                                                 "iterations": iterations,
-                                                "override_id": overridesID
+                                                "overrideID": overridesID
                                                 })
     return new_studyjob
 
@@ -144,16 +144,26 @@ class AgentModelParametersOverridePaths():
         agent_block_id_type  = { blockID: block['type'] for (blockID, block) in self.agent_branch['data']['blocks'].items() 
                                                         if 'type' in block }
         
+        agent_key_to_path  = { f"{agentID}.data.blocks.{blockID}.{parameter_key}":  f"{self.agent_id_name_map[agentID]}/{block_label}/{'/'.join(parameter_key.split('.'))}"                                                                  
+                            for (agentID, agentData) in self.agent_branch.items()
+                            for (blockID, block) in agentData['data']['blocks'].items() 
+                            for block_label in [agent_block_id_name[blockID] if blockID in agent_block_id_name else agent_block_id_type[blockID]]
+                            for parameter_key in flatten_json.flatten(block, ".").keys() }
         # block parameters
-        agent_key_to_path   = { key: f"{ self.agent_id_name_map[ agentId ]}/{ agent_block_id_name[BlockId] if BlockId in agent_block_id_name else agent_block_id_type[BlockId]}/{'/'.join(key.split('.')[4:])}" 
-                                    for (key,value) in self.agent_branches_flat.items() if 'blocks' in key
-                                    for (agentId,BlockId) in [ (key.split('.')[0], key.split('.')[3] )]  }
+        # agent_key_to_path   = { key: f"{ self.agent_id_name_map[ agentId ]}/{ agent_block_id_name[BlockId] if BlockId in agent_block_id_name else agent_block_id_type[BlockId]}/{'/'.join(key.split('.')[4:])}" 
+        #                             for (key,value) in self.agent_branches_flat.items() if 'blocks' in key
+        #                             for (agentId,BlockId) in [ (key.split('.')[0], key.split('.')[3] )]  }
         # agent non-block parameters
-        agent_param_to_path = {  key: f"{ self.agent_id_name_map[ agentId[0]]}/{'/'.join(agentdata)}" 
-                                    for (key,value) in self.agent_branches_flat.items() if 'data' in key and 'blocks' not in key and '._' not in key and 'index' not in key
-                                    for (agentId,agentdata) in [ (key.split('.')[0:1], key.split('.')[1:]) ]}
+        filter_list = ('blocks', 'index', '_')
+        agent_root_param_to_path = { f"{agentID}.data.{parameter_key}": f"{ self.agent_id_name_map[agentID] }/root/{'/'.join(parameter_key.split('.'))}"
+                                     for (agentID, agentData) in self.agent_branch.items()
+                                     for parameter_key in flatten_json.flatten(agentData['data'], '.').keys() 
+                                     if not parameter_key.startswith(filter_list) }
+        # agent_param_to_path = {  key: f"{ self.agent_id_name_map[ agentId[0]]}/{'/'.join(agentdata)}" 
+        #                             for (key,value) in self.agent_branches_flat.items() if 'data' in key and 'blocks' not in key and '._' not in key and 'index' not in key
+        #                             for (agentId,agentdata) in [ (key.split('.')[0:1], key.split('.')[1:]) ]}
         # Combine them
-        agent_key_to_path  |= agent_param_to_path
+        agent_key_to_path  |= agent_root_param_to_path
 
         path_to_agent_key   = { value: key for (key,value) in agent_key_to_path.items() }
         return path_to_agent_key
