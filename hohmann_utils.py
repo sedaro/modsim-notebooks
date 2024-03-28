@@ -78,9 +78,13 @@ def calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER):
     target_mean_motion = calc_circular_mean_motion(target_radius_ER)
     return calc_hohmann_transfer_time(chaser_radius_ER, target_radius_ER) * target_mean_motion
 
-def phasing_angle_for_target(chaser_radius_ER, target_radius_ER):
-    return math.pi - calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
+def phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg):
+    # Depends if the chaser is leading or lagging the target
+    if phase_angle_deg < 0.0:
+        return math.pi - calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
+    else:   
+        return math.pi + calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
 
 def calc_hohmann_transfer_wait_time(chaser_radius_ER, target_radius_ER, phase_angle_deg, k):
-    wait_time = (phasing_angle_for_target(chaser_radius_ER, target_radius_ER) - phase_angle_deg*math.pi/180 + 2*math.pi*k) / (calc_circular_mean_motion(chaser_radius_ER) - calc_circular_mean_motion(target_radius_ER))
+    wait_time = (phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg) - phase_angle_deg*math.pi/180 + 2*math.pi*k) / (calc_circular_mean_motion(chaser_radius_ER) - calc_circular_mean_motion(target_radius_ER))
     return wait_time
