@@ -57,6 +57,7 @@ This repository includes pre-generated output from GMAT in the `reference_data/`
 - Update `generate_orbits.py` variables `DRAG_TEMPLATE` and `SRP_TEMPLATE` to refer to the appropriate spacecraft template branches.
 - Run `generate_orbits.py` to create `orbits.json`.
 - Run `build_gmat_script.py` to create the `scenario.script` file in the `reference_data/` directory.
+- Install the `EGM2008.cof` file in the GMAT `data/gravity/Earth` directory.
 - Open `scenario.script` in GMAT and manually run the scenario. This may take a while and use several GB of memory, so ensure that sufficient resources are available prior to running. The ephemeris files will take approximately 325 MB of storage space.
 
 
