@@ -8,6 +8,10 @@ sec_per_TU = 806.811
 
 # Circular Coplanar Phasing (different orbits)
 
+# Resources:
+# - Fundamentals of Astrodynamics 1971 (Bate, Mueller, White) pg 163, 362
+# - Fundamentals of Astrodynamics and Applications Fifth Edition 2022 (Vallado) pg 329, 367
+
 # note numpy arrays can use @ for dot product
 # https://numpy.org/doc/stable/reference/generated/numpy.dot.html
 
