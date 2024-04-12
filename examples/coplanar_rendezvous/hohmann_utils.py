@@ -1,9 +1,10 @@
 import math
+import numpy as np
 
 Earth_radius_km = 6378.1363
 earth_u_ER = 1
 sec_per_TU = 806.811
-
+g = 9.80665 # m/s**2
 
 # helper functions
 def unit_vector(vector):
@@ -15,7 +16,7 @@ def angle_between(v1, v2):
     v2_u = unit_vector(v2)
     return np.arccos(np.clip(np.dot(v1_u, v2_u), -1.0, 1.0))  
 
-    
+
 # Circular Coplanar Phasing (different orbits)
 
 # Resources:
