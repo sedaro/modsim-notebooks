@@ -1,7 +1,5 @@
 import math
 
-
-
 Earth_radius_km = 6378.1363
 earth_u_ER = 1
 sec_per_TU = 806.811
@@ -15,21 +13,29 @@ sec_per_TU = 806.811
 # note numpy arrays can use @ for dot product
 # https://numpy.org/doc/stable/reference/generated/numpy.dot.html
 
-def calc_dot_product_list(list1, list2):
+
+def calc_dot_product_list(list1, list2):  # REVIEW: it seems redundant to lead all of these with "calc_"
     return sum([i*j for (i, j) in zip(list1, list2)])
+
 
 def calc_dot_product(position1, position2):
     from operator import mul
     return sum(map(mul, position1, position2))
 
-def angle_between_positions(position1, position2):
-    return math.acos( calc_dot_product(position1, position2) / (position1.norm() * position2.norm()))
+# REVIEW: why not just use np.dot? ^^^
 
-def position_to_radus_ER(position):
+
+def angle_between_positions(position1, position2):
+    return math.acos(calc_dot_product(position1, position2) / (position1.norm() * position2.norm()))
+
+
+def position_to_radus_ER(position):  # REVIEW: "radius"
     return position.norm() / Earth_radius_km
 
-def calc_radaii_canonical_units(radius_km):
+
+def calc_radaii_canonical_units(radius_km):  # REVIEW: "radii"
     return radius_km / Earth_radius_km
+
 
 def calc_circular_mean_motion(radius_ER):
     return math.sqrt(earth_u_ER / (radius_ER**3))
@@ -38,8 +44,10 @@ def calc_circular_mean_motion(radius_ER):
 def calc_semi_major_axis_of_transfer_orbit(first_radius_ER, second_radius_ER):
     return (first_radius_ER + second_radius_ER) / 2
 
+
 def calc_circular_orbit_velocity(radius_ER):
     return math.sqrt(earth_u_ER / radius_ER)
+
 
 def calc_hohmann_transfer_dvs(chaser_radius_ER, target_radius_ER):
     # calculate the semi-major axis of the transfer orbit
@@ -61,7 +69,7 @@ def calc_hohmann_transfer_dvs(chaser_radius_ER, target_radius_ER):
     dv_to_enter_the_transfer_orbit = math.fabs(v_start_transfer - v_chaser)
 
     # calculate the velocity change required for the chaser satellite to exit the transfer orbit
-    dv_to_exit_the_transfer_orbit = math.fabs(v_end_transfer - v_target ) 
+    dv_to_exit_the_transfer_orbit = math.fabs(v_end_transfer - v_target)
 
     return dv_to_enter_the_transfer_orbit, dv_to_exit_the_transfer_orbit
 
@@ -71,24 +79,28 @@ def calc_hohmann_transfer_time(chaser_radius_ER, target_radius_ER):
     a_transfer = calc_semi_major_axis_of_transfer_orbit(chaser_radius_ER, target_radius_ER)
 
     # calculate the period of the transfer orbit
-    T_transfer =2 * math.pi * math.sqrt((a_transfer ** 3) / earth_u_ER)
+    T_transfer = 2 * math.pi * math.sqrt((a_transfer ** 3) / earth_u_ER)
 
     # calculate the time to transfer from the chaser orbit to the target orbit
     time_transfer = T_transfer / 2
 
     return time_transfer
 
+
 def calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER):
     target_mean_motion = calc_circular_mean_motion(target_radius_ER)
     return calc_hohmann_transfer_time(chaser_radius_ER, target_radius_ER) * target_mean_motion
 
+
 def phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg):
     # Depends if the chaser is leading or lagging the target
-    if phase_angle_deg < 0.0:
+    if phase_angle_deg < 0.0:  # REVIEW: why degrees?
         return math.pi - calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
-    else:   
+    else:
         return math.pi + calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
 
+
 def calc_hohmann_transfer_wait_time(chaser_radius_ER, target_radius_ER, phase_angle_deg, k):
-    wait_time = (phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg) - phase_angle_deg*math.pi/180 + 2*math.pi*k) / (calc_circular_mean_motion(chaser_radius_ER) - calc_circular_mean_motion(target_radius_ER))
+    wait_time = (phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg) - phase_angle_deg*math.pi /
+                 180 + 2*math.pi*k) / (calc_circular_mean_motion(chaser_radius_ER) - calc_circular_mean_motion(target_radius_ER))
     return wait_time
