@@ -29,11 +29,11 @@ def angle_between_positions(position1, position2):
     return math.acos(calc_dot_product(position1, position2) / (position1.norm() * position2.norm()))
 
 
-def position_to_radus_ER(position):  # REVIEW: "radius"
+def position_to_radius_ER(position):  # REVIEW: "radius"
     return position.norm() / Earth_radius_km
 
 
-def calc_radaii_canonical_units(radius_km):  # REVIEW: "radii"
+def calc_radii_canonical_units(radius_km):  # REVIEW: "radii"
     return radius_km / Earth_radius_km
 
 
