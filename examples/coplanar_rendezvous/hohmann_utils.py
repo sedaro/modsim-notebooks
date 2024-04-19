@@ -104,7 +104,7 @@ def calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER):
 
 def phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg):
     # Depends if the chaser is leading or lagging the target
-    if phase_angle_deg < 0.0:  # REVIEW: why degrees?
+    if phase_angle_deg < 0.0:  
         return math.pi - calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
     else:
         return math.pi + calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
