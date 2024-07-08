@@ -17,6 +17,7 @@ These notebooks focus on interactions with the Sedaro API from Python.
 5. [Wildfire Cosimulation Game](examples/wildfire_cosimulation_game.ipynb)
 5. [Routines](examples/routines.ipynb)
 6. [Hohmann Transfer](examples/coplanar_rendezvous/thrust_maneuver.ipynb)
+7. [Link Budget Cosimulation](examples/data_handling_cosimulation.ipynb)
 
 ### Model Validation
 
