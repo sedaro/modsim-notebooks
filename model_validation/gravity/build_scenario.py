@@ -65,5 +65,5 @@ if __name__ == '__main__':
     # Delete existing agents and create new ones
     existing = scenario.Agent.get_all()
     if existing:
-        scenario.crud(delete=[entry.id for entry in existing])
-    scenario.crud(blocks=blocks)
+        scenario.update(delete=[entry.id for entry in existing])
+    scenario.update(blocks=blocks)

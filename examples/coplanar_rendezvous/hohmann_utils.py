@@ -27,16 +27,13 @@ def angle_between(v1, v2):
 # https://numpy.org/doc/stable/reference/generated/numpy.dot.html
 
 
-def calc_dot_product_list(list1, list2):  # REVIEW: it seems redundant to lead all of these with "calc_"
+def calc_dot_product_list(list1, list2):  
     return sum([i*j for (i, j) in zip(list1, list2)])
 
 
 def calc_dot_product(position1, position2):
     from operator import mul
     return sum(map(mul, position1, position2))
-
-# REVIEW: why not just use np.dot? ^^^
-
 
 def angle_between_positions(position1, position2):
     return math.acos(calc_dot_product(position1, position2) / (position1.norm() * position2.norm()))
@@ -107,7 +104,7 @@ def calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER):
 
 def phasing_angle_for_target(chaser_radius_ER, target_radius_ER, phase_angle_deg):
     # Depends if the chaser is leading or lagging the target
-    if phase_angle_deg < 0.0:  # REVIEW: why degrees?
+    if phase_angle_deg < 0.0:  
         return math.pi - calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
     else:
         return math.pi + calc_lead_angle_for_target(chaser_radius_ER, target_radius_ER)
