@@ -18,9 +18,9 @@ def sedaroLogin():
     # with open('../../secrets.json', 'r') as file:
     #     API_KEY = json.load(file)['castle']  # FIXME
     with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
-        API_KEY = json.load(file)['castle']
-    # return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
-    return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
+        API_KEY = json.load(file)['fleetwood']
+    return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
+    # return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
     # return SedaroApiClient(API_KEY)
 
 
