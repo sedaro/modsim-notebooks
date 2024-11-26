@@ -28,6 +28,10 @@ As our model selection expands, we will continue to add new validation notebooks
 1. [Attitude Dynamics](model_validation/attitude_dynamics/attitude_dynamics.ipynb)
 2. [Gravity Model](model_validation/gravity/gravity.ipynb)
 
+### Benchmarking
+
+1. [Cosim Latency](benchmarking/cosim_latency.ipynb)
+
 ### Important: Read Before Running
 
 These notebooks may make changes to agent and scenario branches in your account. Ensure any changes to the target branches are saved prior to running any code. Sedaro recommends committing current work and creating new branches in the target repositories to avoid loss of work.
