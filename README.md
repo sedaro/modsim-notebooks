@@ -18,6 +18,7 @@ These notebooks focus on interactions with the Sedaro API from Python.
 5. [Routines](examples/routines.ipynb)
 6. [Hohmann Transfer](examples/coplanar_rendezvous/thrust_maneuver.ipynb)
 7. [Link Budget Cosimulation](examples/data_handling_cosimulation.ipynb)
+8. [Upload a CAD File](examples/upload_cad_file.ipynb)
 
 ### Model Validation
 
