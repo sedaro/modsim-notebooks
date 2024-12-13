@@ -18,9 +18,9 @@ def sedaroLogin():
     # with open('../../secrets.json', 'r') as file:
     #     API_KEY = json.load(file)['castle']  # FIXME
     with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
-        API_KEY = json.load(file)['fleetwood']
-    return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
-    # return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
+        API_KEY = json.load(file)['castle']
+    # return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
+    return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
     # return SedaroApiClient(API_KEY)
 
 
@@ -33,7 +33,7 @@ def _parse_tuple_stream(field, key):
     return list(zip(zero, one))
 
 
-def schedule_table(gs_template: 'AgentTemplateBranch', ground_segment_results: 'SedaroAgentResult'):
+def schedule_table(gs_template: 'AgentTemplateBranch', ground_segment_results: 'SedaroAgentResult', use_interfaces: list[str] = None):
     '''
     Get schedule data in an easily plottable form
     '''
@@ -44,6 +44,8 @@ def schedule_table(gs_template: 'AgentTemplateBranch', ground_segment_results: '
 
     # Get the interfaces associated with the scheduler
     interfaces = [i.id for i in scheduler.interfaces.keys()]
+    if use_interfaces is not None:
+        interfaces = [i for i in interfaces if i in use_interfaces]
     # Reconstruct dict from stream
     active_interfaces_dict = {}
     for id_ in interfaces:
@@ -152,12 +154,12 @@ def get_ranges(series: list[bool]) -> list[tuple[int, int]]:
             ranges.append((start, i))
             start = None
     if start is not None:
-        ranges.append((start, -1))
+        ranges.append((start, len(series)-1))
     return ranges
 
 
 def contact_booleans_to_intervals(
-        projected_contacts: dict[tuple[str, str], list[bool]],
+        projected_contacts: dict[str, dict[str, list[bool]]],
         tg_targets: list[tuple[str, list[str], list[str]]]
     ) -> tuple[
         dict[tuple[str, str], list[tuple[int, int]]],
@@ -184,18 +186,19 @@ def contact_booleans_to_intervals(
     c_satellite = defaultdict(list)
     c_tg = defaultdict(list)
     i = 0
-    for pair, contact_series in projected_contacts.items():
-        antenna, sat = pair
-        ranges = get_ranges(contact_series)
-        c_t[pair] = ranges
-        C.extend(ranges)
-        durations.extend([stop - start for start, stop in ranges])
-        range_indices = list(range(i, i + len(ranges)))
-        c_location[antenna].extend(range_indices)
-        c_satellite[sat].extend(range_indices)
-        c_tg[target_map[sat]].extend(range_indices)
-        contact_pairs.extend(pair for _ in range(len(ranges)))
-        i += len(ranges)
+    for antenna, per_target in projected_contacts.items():
+        for sat, contact_series in per_target.items():
+            pair = (antenna, sat)
+            ranges = get_ranges(contact_series)
+            c_t[pair] = ranges
+            C.extend(ranges)
+            durations.extend([stop - start for start, stop in ranges])
+            range_indices = list(range(i, i + len(ranges)))
+            c_location[antenna].extend(range_indices)
+            c_satellite[sat].extend(range_indices)
+            c_tg[target_map[sat]].extend(range_indices)
+            contact_pairs.extend(pair for _ in range(len(ranges)))
+            i += len(ranges)
     return c_t, C, c_location, c_satellite, c_tg, durations, contact_pairs
 
 
@@ -210,8 +213,7 @@ def selected_contacts_to_schedule(
     resolution_seconds: float,
 ) -> list[dict[str, Any]]:
     # Create a lookup for target to agent
-    target_data = {}
-    mapped_tgs = []
+    target_data = defaultdict(dict)
     for i, (tg_id, target_ids, agent_ids) in enumerate(tg_targets):
         for target_id, agent_id in zip(target_ids, agent_ids):
             target_data[target_id]['agentId'] = agent_id
@@ -225,8 +227,8 @@ def selected_contacts_to_schedule(
     schedule = []
     for i, selected in enumerate(selected_contacts):
         if selected:
-            antenna, target = contact_labels[i]
-            start_i, end_i = all_contact_intervals[i]
+            antenna, target = contact_labels[i % n_windows]
+            start_i, end_i = all_contact_intervals[i % n_windows]
             start_mjd = mjd_start + start_i * resolution_seconds / 86400
             end_mjd = mjd_start + end_i * resolution_seconds / 86400
             entry = {
