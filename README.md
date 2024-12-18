@@ -15,9 +15,10 @@ These notebooks focus on interactions with the Sedaro API from Python.
 3. [Flower Constellations](examples/flower_constellation.ipynb)
 4. [Build SuperDove Constellation](examples/build_superdove_constellation.ipynb)
 5. [Wildfire Cosimulation Game](examples/wildfire_cosimulation_game.ipynb)
-5. [Routines](examples/routines.ipynb)
-6. [Hohmann Transfer](examples/coplanar_rendezvous/thrust_maneuver.ipynb)
-7. [Link Budget Cosimulation](examples/data_handling_cosimulation.ipynb)
+6. [Routines](examples/routines.ipynb)
+7. [Hohmann Transfer](examples/coplanar_rendezvous/thrust_maneuver.ipynb)
+8. [Link Budget Cosimulation](examples/data_handling_cosimulation.ipynb)
+9. [Revisit & Comms Analytics](examples/revisit_and_comm_analytics.ipynb)
 
 ### Model Validation
 
