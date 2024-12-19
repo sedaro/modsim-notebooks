@@ -1,3 +1,8 @@
+'''
+This is the script I used to create a Walker Delta constellation of peripheral space points in my scenario. You don't
+need to run this script to view the analytics or perform cosimulation, but it could be helpful for creating a new,
+similar scenario.
+'''
 import numpy as np
 from utils import sedaroLogin
 
@@ -45,14 +50,10 @@ for plane_n in range(walker_p):
     plane_agent_ids = []
     for satellite_number in range(sats_per_plane):
         # Create the orbit block using the orbital elements
-        try:
-            orbit = scenario.PropagatedOrbitKinematics.create(
-                initialStateDefType='ORBITAL_ELEMENTS',
-                initialStateDefParams=elements[i]
-            )
-        except:
-            print(elements)
-            raise
+        orbit = scenario.PropagatedOrbitKinematics.create(
+            initialStateDefType='ORBITAL_ELEMENTS',
+            initialStateDefParams=elements[i]
+        )
         i += 1
         # Create the agent with this orbit
         agent = scenario.PeripheralSpacePoint.create(
