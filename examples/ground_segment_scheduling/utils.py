@@ -15,6 +15,9 @@ if TYPE_CHECKING:
 
 
 def sedaroLogin():
+    '''
+    Utility for credentialed access to the sedaro client
+    '''
     # with open('../../secrets.json', 'r') as file:
     #     API_KEY = json.load(file)['castle']  # FIXME
     with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
@@ -90,11 +93,21 @@ def schedule_table(gs_template: 'AgentTemplateBranch', ground_segment_results: '
     return pd.DataFrame(rows)
 
 
+def _space_target_ids(model_dict: dict) -> list[str]:
+    '''
+    Helper function to get the ids of all space targets
+    '''
+    ids = []
+    for block in model_dict['blocks']:
+        if block['type'] == 'NetworkSpaceTarget':
+            ids.append(block['id'])
+    return ids
+
+
 def target_analytics(ground_segment_results: 'SedaroAgentResult'):
     # Get targets (some are generated for TG)
-    from nebula import block_dicts_by_type  # FIXME, develop a util in the client for this
     model_dict = ground_segment_results._SedaroAgentResult__initial_state
-    target_ids = [t['id'] for t in block_dicts_by_type(model_dict, 'SpaceTarget')]
+    target_ids = _space_target_ids(model_dict)
     target_rows = {}
 
     # Helper function to get block names
