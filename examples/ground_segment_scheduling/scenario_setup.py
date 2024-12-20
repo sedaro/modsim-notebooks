@@ -43,7 +43,7 @@ for agent in scenario.PeripheralSpacePoint.get_all():
 if ids_to_delete:
     scenario.update(delete=ids_to_delete)
 
-created_agent_ids = []
+blocks_to_create = []
 sats_per_plane = int(walker_t/walker_p)
 elements = walker_delta_elements(walker_i, walker_t, walker_p, walker_f)
 i = 0
@@ -51,20 +51,32 @@ for plane_n in range(walker_p):
     plane_agent_ids = []
     for satellite_number in range(sats_per_plane):
         # Create the orbit block using the orbital elements
-        orbit = scenario.PropagatedOrbitKinematics.create(
-            initialStateDefType='ORBITAL_ELEMENTS',
-            initialStateDefParams=elements[i]
-        )
-        i += 1
+        orbit = {
+            'type': 'PropagatedOrbitKinematics',
+            'initialStateDefType': 'ORBITAL_ELEMENTS',
+            'initialStateDefParams': elements[i],
+            'id': f'$-orbit-{i}'
+        }
+        blocks_to_create.append(orbit)
+
         # Create the agent with this orbit
-        agent = scenario.PeripheralSpacePoint.create(
-            name=f'Spacecraft {plane_n+1}-{satellite_number+1}',
-            kinematics=orbit.id
-        )
-        plane_agent_ids.append(agent.id)
+        agent = {
+            'type': 'PeripheralSpacePoint',
+            'name': f'Spacecraft {plane_n+1}-{satellite_number+1}',
+            'kinematics': orbit['id'],
+            'id': f'$-agent-{i}'
+        }
+        blocks_to_create.append(agent)
+        plane_agent_ids.append(agent['id'])
+        i += 1
     # Create the agent group for this plane
-    group = scenario.AgentGroup.create(
-        name=f'Plane {plane_n+1}',
-        agentAssociations={id_: {'priority': i} for i, id_ in enumerate(plane_agent_ids)},
-        agentType='SpaceTarget'
-    )
+    group = {
+        'type': 'AgentGroup',
+        'name': f'Plane {plane_n+1}',
+        'agentAssociations': {id_: {'priority': i} for i, id_ in enumerate(plane_agent_ids)},
+        'agentType': 'SpaceTarget',
+        'id': f'$-group-{plane_n}'
+    }
+    blocks_to_create.append(group)
+
+scenario.update(blocks=blocks_to_create)
