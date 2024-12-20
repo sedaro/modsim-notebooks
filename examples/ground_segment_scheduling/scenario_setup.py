@@ -40,7 +40,8 @@ ids_to_delete = [ag.id for ag in scenario.AgentGroup.get_all()]
 for agent in scenario.PeripheralSpacePoint.get_all():
     ids_to_delete.append(agent.id)
     ids_to_delete.append(agent.kinematics.id)
-scenario.crud(delete=ids_to_delete)
+if ids_to_delete:
+    scenario.update(delete=ids_to_delete)
 
 created_agent_ids = []
 sats_per_plane = int(walker_t/walker_p)
