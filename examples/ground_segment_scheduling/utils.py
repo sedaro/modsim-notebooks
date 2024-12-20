@@ -18,12 +18,10 @@ def sedaroLogin():
     '''
     Utility for credentialed access to the sedaro client
     '''
-    # with open('../../secrets.json', 'r') as file:
-    #     API_KEY = json.load(file)['castle']  # FIXME
-    with open('/Users/richard/sedaro/satellite-app/secrets.json', 'r') as file:
-        API_KEY = json.load(file)['castle']
-    # return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
-    return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
+    with open('../../secrets.json', 'r') as file:
+        API_KEY = json.load(file)['API_KEY']
+    return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
+    # return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
     # return SedaroApiClient(API_KEY)
 
 
@@ -98,7 +96,7 @@ def _space_target_ids(model_dict: dict) -> list[str]:
     Helper function to get the ids of all space targets
     '''
     ids = []
-    for block in model_dict['blocks']:
+    for block in model_dict['blocks'].values():
         if block['type'] == 'NetworkSpaceTarget':
             ids.append(block['id'])
     return ids
@@ -248,7 +246,7 @@ def selected_contacts_to_schedule(
                 'groundCommDevice': antenna,
                 'targetId': target,
                 'agentId': target_data[target]['agentId'],
-                'targetPosition': target_series[target][start_i],
+                'targetPosition': target_series[target][start_i].tolist(),
                 'activeInterval': (start_mjd, end_mjd),
             }
             if i < n_windows:  # Downlink
