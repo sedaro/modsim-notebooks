@@ -14,7 +14,7 @@ For more information about the reference tool, visit the links below.
 
 This validation was run against the following public validation scenario, available to all users of Sedaro:
 
-- FIXME: Add shareable link
+- [Gravity Validation Scenario](https://satellite.sedaro.com/scenario/PLCPJHKtysym8fHJVxslm3/edit/time?share=8608410b-2b80-4402-be91-188a714c3dcd)
 
 Steps to reproduce our results fully or in part are included below. For convenience, we include in this repository the fully-populated Python notebook in original and PDF forms.
 
