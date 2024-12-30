@@ -20,9 +20,7 @@ def sedaroLogin():
     '''
     with open('../../secrets.json', 'r') as file:
         API_KEY = json.load(file)['API_KEY']
-    return SedaroApiClient(host='http://api.astage.sedaro.com', api_key=API_KEY)  # FIXME
-    # return SedaroApiClient(host='http://localhost', api_key=API_KEY)  # FIXME
-    # return SedaroApiClient(API_KEY)
+    return SedaroApiClient(API_KEY)
 
 
 def _parse_tuple_stream(field, key):
