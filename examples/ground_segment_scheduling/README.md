@@ -6,10 +6,11 @@ station network](https://atlasspace.com/wp-content/uploads/2023/07/07192023-ANTE
 we simulate a scenario of a Walker delta 60: 24/3/3 constellation with uplink and downlink requirements. The scheduling
 is posed as an integer linear programming problem which maximizes downlinked data under a minimum uplink constraint [1].
 
-- (Add link on prod) Here you can find our `GroundSegment` model of the Atlas ground station network.
-- (Add link on prod) Here is the "pure simulation" scenario that uses our built-in `ContactScheduler` block to plan and
+The demo scenario consists of the following models/results on the Sedaro platfrom:
+- [`GroundSegment` model](https://satellite.sedaro.com/repositories/PPwmhZR67Jqz8t9gDsvxLR) of the Atlas ground station network.
+- ["pure simulation" scenario](https://satellite.sedaro.com/scenario/PPwmhbK6kh7lnGXhRtvbkY/analyze/playback) that uses our built-in `ContactScheduler` block to plan and
   execute contacts with the Walker Delta constellation.
-- (Add link on prod) Here is the cosimulation scenario, where we have used `optimization_cosimulation.ipynb` to
+- [cosimulation scenario](https://satellite.sedaro.com/scenario/PQ2ZzJ5dWLyy8WSGHb9zS7/analyze/playback), where we have used `optimization_cosimulation.ipynb` to
   determine an optimal schedule for contacts.
 
 [1]Eddy, D., Ho, M., and Kochenderfer, M. J., “Optimal Ground Station Selection for Low-Earth Orbiting Satellites”, 
