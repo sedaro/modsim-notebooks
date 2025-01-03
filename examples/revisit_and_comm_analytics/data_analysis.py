@@ -12,11 +12,9 @@ def target_data_results(
     observer_results: dict[str, SedaroAgentResult],
     target_names_by_id: dict[str, str],
     select_data_types: list[str] = [],
-    progress_bar: bool = True,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    if progress_bar:
-        bar = IntProgress(min=0, max=len(observer_results), layout={'width': '100%'})
-        display(bar)
+    bar = IntProgress(min=0, max=len(observer_results), layout={'width': '100%'})
+    display(bar)
 
     transmit_data: list[dict[str, float]] = []
     receive_data: list[dict[str, float]] = []
@@ -79,8 +77,7 @@ def target_data_results(
                         "Agent": agent,
                     })
 
-        if progress_bar:
-            bar.value += 1
+        bar.value += 1
 
     transmit_dataframe = pd.DataFrame(
         transmit_data, columns=["Time", "Bit Rate", "Data Transmitted", "Data Type", "Agent", "Target"])

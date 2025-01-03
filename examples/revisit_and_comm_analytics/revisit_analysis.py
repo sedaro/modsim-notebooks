@@ -13,11 +13,9 @@ def target_revisit_results(
     revisit_condition_ids: dict[str, str],
     target_names_by_id: dict[str, str],
     observer_to_target_mapping: dict[str, dict[str, str]],
-    progress_bar: bool = True,
 ) -> pd.DataFrame:
-    if progress_bar:
-        bar = IntProgress(min=0, max=len(observer_results), layout={'width': '100%'})
-        display(bar)
+    bar = IntProgress(min=0, max=len(observer_results), layout={'width': '100%'})
+    display(bar)
 
     revisits: list[dict[str, datetime | str]] = []
     for agent, agent_results in observer_results.items():
@@ -41,20 +39,17 @@ def target_revisit_results(
                         "Duration": revisit_end_time - revisit_start_time
                     })
 
-        if progress_bar:
-            bar.value += 1
+        bar.value += 1
 
     return pd.DataFrame(revisits)
 
 
 def target_revisit_statistics(
     revisits: pd.DataFrame,
-    progress_bar: bool = True,
 ) -> pd.DataFrame:
     unique_targets = revisits["Target"].unique()
-    if progress_bar:
-        bar = IntProgress(min=0, max=len(unique_targets) + 1, layout={'width': '100%'})
-        display(bar)
+    bar = IntProgress(min=0, max=len(unique_targets) + 1, layout={'width': '100%'})
+    display(bar)
 
     revisits.sort_values(by=["Start", "End"], inplace=True)
     revisit_statistics: list[dict[str, float]] = []
@@ -70,8 +65,7 @@ def target_revisit_statistics(
                 "Max. Time Between Revisits": target_revisits["Start"].diff().max(),
             })
 
-        if progress_bar:
-            bar.value += 1
+        bar.value += 1
 
     revisit_statistics.append({
         "Target": "Total",
@@ -82,7 +76,6 @@ def target_revisit_statistics(
         "Max. Time Between Revisits": revisits["Start"].diff().max(),
     })
 
-    if progress_bar:
-        bar.value += 1
+    bar.value += 1
 
     return pd.DataFrame(revisit_statistics)
