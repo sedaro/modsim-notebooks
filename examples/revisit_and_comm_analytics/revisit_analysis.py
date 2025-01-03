@@ -34,10 +34,10 @@ def target_revisit_results(
                         revisit_indices.append(revisit_indices[-1] + 1)  # add the index after the last compliance
                     revisit_start_time = compliance_times[revisit_indices[0]]
                     revisit_end_time = compliance_times[revisit_indices[-1]]
-                    agent_id = observer_to_target_mapping[agent].get(target_id, target_id)
+                    real_target_id = observer_to_target_mapping[agent].get(target_id, target_id)
                     revisits.append({
                         "Agent": agent,
-                        "Target": target_names_by_id[agent_id],
+                        "Target": target_names_by_id[real_target_id],
                         "Start": revisit_start_time,
                         "End": revisit_end_time,
                         "Duration": revisit_end_time - revisit_start_time

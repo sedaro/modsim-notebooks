@@ -11,6 +11,7 @@ def target_data_results(
     agent_templates: dict[str, Any],
     observer_results: dict[str, SedaroAgentResult],
     target_names_by_id: dict[str, str],
+    observer_to_target_mapping: dict[str, dict[str, str]],
     select_data_types: list[str] = [],
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Extract data transmission, reception, and storage data from observer results."""
@@ -32,27 +33,29 @@ def target_data_results(
                                      if not select_data_types or data_type.name in select_data_types]  # filter data types
             for data_type_name in valid_data_type_names:
                 for target, bit_rate, t_1, t_2 in zip(data_interface_results.activeLinkTarget.values, data_interface_results.typeBitRates.values[data_type_name], results_times, results_times[1:]):
-                    if target in target_names_by_id:
+                    real_target_id = observer_to_target_mapping[agent].get(target, target)
+                    if real_target_id in target_names_by_id:
                         transmit_data.append({
                             "Time": t_1,
                             "Bit Rate": bit_rate,
                             "Data Transmitted": bit_rate * (t_2 - t_1).total_seconds(),
                             "Data Type": data_type_name,
                             "Agent": agent,
-                            "Target": target_names_by_id[target],
+                            "Target": target_names_by_id[real_target_id],
                         })
 
         for data_interface in agent_template.ReceiveInterface.get_all():
             data_interface_results = agent_results.block(data_interface.id)
             for target, bit_rate, t_1, t_2 in zip(data_interface_results.activeLinkTarget.values, data_interface_results.bitRate.values, results_times, results_times[1:]):
-                if target in target_names_by_id:
+                real_target_id = observer_to_target_mapping[agent].get(target, target)
+                if real_target_id in target_names_by_id:
                     receive_data.append({
                         "Time": t_1,
                         "Bit Rate": bit_rate,
                         "Data Received": bit_rate * (t_2 - t_1).total_seconds(),
                         "Data Type": data_type_name,
                         "Agent": agent,
-                        "Target": target_names_by_id[target],
+                        "Target": target_names_by_id[real_target_id],
                     })
 
         data_storage_ids = agent_template.DataStorage.get_all_ids()
