@@ -19,6 +19,7 @@ These notebooks focus on interactions with the Sedaro API from Python.
 7. [Hohmann Transfer](examples/coplanar_rendezvous/thrust_maneuver.ipynb)
 8. [Link Budget Cosimulation](examples/data_handling_cosimulation.ipynb)
 9. [Revisit & Comms Analytics](examples/revisit_and_comm_analytics/revisit_and_comm_analytics.ipynb)
+10. [Ground Segment Scheduling](examples/ground_segment_scheduling/README.md)
 
 ### Model Validation
 
@@ -26,8 +27,8 @@ These notebooks demonstrate the accuracy of Sedaro models through interaction wi
 
 As our model selection expands, we will continue to add new validation notebooks here.
 
-1. [Attitude Dynamics](model_validation/attitude_dynamics/attitude_dynamics.ipynb)
-2. [Gravity Model](model_validation/gravity/gravity.ipynb)
+1. [Attitude Dynamics](model_validation/attitude_dynamics/README.md)
+2. [Gravity Model](model_validation/gravity/README.md)
 
 ### Benchmarking
 
