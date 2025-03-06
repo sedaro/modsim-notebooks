@@ -2,15 +2,53 @@
   "HOST": "https://api.sedaro.com",
   "WEB_HOST": "https://satellite.sedaro.com",
   "WILDFIRE": {
-    "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
-    "SCENARIO_BRANCH_ID": "<your branch id here>"
+    "AGENT_TEMPLATE_BRANCH_ID": "",
+    "SCENARIO_BRANCH_ID": ""
   },
   "SUPERDOVE": {
-    "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
-    "SCENARIO_BRANCH_ID": "<your branch id here>"
+    "SCENARIO_BRANCH_ID": ""
   },
   "FLOWERS": {
-    "AGENT_TEMPLATE_BRANCH_ID": "<your branch id here>",
-    "SCENARIO_BRANCH_ID": "<your branch id here>"
+    "AGENT_TEMPLATE_BRANCH_ID": "",
+    "SCENARIO_BRANCH_ID": ""
+  },
+  "LATENCY": {
+    "SCENARIO_BRANCH_ID": "PQjcqWStb4whj5g7dcdvRj"
+  },
+  "DATA_HANDLING": {
+    "SCENARIO_BRANCH_ID": ""
+  },
+  "ROUTINES": {
+    "SCENARIO_BRANCH_ID": ""
+  },
+  "REVISIT_ANALYTICS": {
+    "SCENARIO_BRANCH_ID": "PKCbxCXvQhCn8glwd5mkSj",
+    "JOB_ID": "",
+    "OBSERVER_AGENT_GROUP_ID": "NT08_XVROe2Va_eBgCK2k",
+    "TARGET_AGENT_GROUP_ID": "NTKAJurTrHOKg99QP6Hpk",
+    "REVISIT_ANALYSIS_CONDITION": "Ground Station Elevation Angle",
+    "DATA_ANALYSIS_DATA_TYPES": []
+  },
+  "GROUND_SEGMENT": {
+    "AGENT_TEMPLATE_BRANCH_ID": "PPwmhZVZNQFGFXFbM65cyw",
+    "PURE_SIM_SCENARIO_BRANCH_ID": "PPwmhbK6kh7lnGXhRtvbkY",
+    "GS_AGENT_NAME": "Atlas (Enterprise)",
+    "COSIM_SCENARIO_BRANCH_ID": ""
+  },
+  "THRUST_MANEUVER": {
+    "SCENARIO_BRANCH_ID": "",
+    "CHASER_AGENT_BRANCH_ID": "",
+    "TARGET_AGENT_BRANCH_ID": ""
+  },
+  "VALIDATION_ATTITUDE": {
+    "ACTIVE_SCENARIO_BRANCH_ID": "PLMgnkkP6VfSWwnQxjKntp",
+    "PASSIVE_SCENARIO_BRANCH_ID": "PLMgrcrZzLgRdYgrMvpblq",
+    "AGENT_TEMPLATE_BRANCH_ID": "PLMgnkBGpxYWX5kLC2Qg3q"
+  },
+  "VALIDATION_GRAVITY": {
+    "SCENARIO_BRANCH_ID": "PLCPJHKtysym8fHJVxslm3"
+  },
+  "VALIDATION_RELATIVE_MOTION": {
+    "SCENARIO_BRANCH_ID": "PM82GkkThT9BfXFCK5Wylp"
   }
 }

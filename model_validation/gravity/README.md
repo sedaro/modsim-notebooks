@@ -21,7 +21,11 @@ Steps to reproduce our results fully or in part are included below. For convenie
 
 ### Reproducing our Results
 
-To ensure reproducibility, the directory containing this notebook also includes a `requirements.txt` file that specifies the exact package versions that were used. To create a similar environment, use the following sequence of commands with Python `3.11` and the built-in `venv` package. See the [venv documentation](https://docs.python.org/3/library/venv.html) for more details on how this works.
+To ensure reproducibility, the directory containing this notebook also includes a `requirements.txt` file that specifies
+the exact package versions that were used. To create a similar environment, run the pip install command in
+`gravity.ipynb` or use the following sequence of commands
+with Python `3.11` and the built-in `venv` package. See the [venv
+documentation](https://docs.python.org/3/library/venv.html) for more details on how this works.
 
 - In a unix-like terminal:
 

@@ -104,7 +104,9 @@ def angleBetweenClosestQuaternions(q_1: np.ndarray, t_1: float,
 def sedaroLogin():
     with open('../../secrets.json', 'r') as file:
         API_KEY = json.load(file)['API_KEY']
-    return SedaroApiClient(API_KEY)
+    with open('../../config.json', 'r') as file:
+        HOST = json.load(file)['HOST']
+    return SedaroApiClient(api_key=API_KEY, host=HOST)
 
 
 def download_file(url: str, path: str):
