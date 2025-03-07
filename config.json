@@ -2,6 +2,13 @@
   "HOST": "https://api.sedaro.com",
   "WEB_HOST": "https://satellite.sedaro.com",
   "EXAMPLES": {
+      "HELLO_WORLD": {
+      "AGENT_TEMPLATE_BRANCH_ID": "",
+      "SCENARIO_BRANCH_ID": ""
+    },
+    "RESULTS_API": {
+      "SCENARIO_BRANCH_ID": "PNl43ktWMgr226XpwNQGjW"
+    },
     "COSIMULATION_GAME": {
       "SCENARIO_BRANCH_ID": ""
     },
@@ -17,13 +24,6 @@
       "PURE_SIM_SCENARIO_BRANCH_ID": "PPwmhbK6kh7lnGXhRtvbkY",
       "GS_AGENT_NAME": "Atlas (Enterprise)",
       "COSIM_SCENARIO_BRANCH_ID": ""
-    },
-    "HELLO_WORLD": {
-      "AGENT_TEMPLATE_BRANCH_ID": "",
-      "SCENARIO_BRANCH_ID": ""
-    },
-    "RESULTS_API": {
-      "SCENARIO_BRANCH_ID": "PNl43ktWMgr226XpwNQGjW"
     },
     "REVISIT_ANALYTICS": {
       "SCENARIO_BRANCH_ID": "PKCbxCXvQhCn8glwd5mkSj",
